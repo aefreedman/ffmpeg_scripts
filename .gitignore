@@ -6,3 +6,6 @@ ffmpeg*.zip
 .gitkeep
 *.code-workspace
 ffmpeg/*
+*.webm
+*.png
+*.jpg

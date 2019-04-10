@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ffmpeg=(${DIR}/ffmpeg/bin/ffmpeg.exe)
 source=(./sources)
@@ -19,8 +20,10 @@ if $verify; then
     echo "source: $source"
 fi
 
-for d in ${source}/*/
-do
+shopt -s globstar
+
+for d in $source/**/; do
+    [[ ! -d $d ]] && continue # if not directory then skip
     # echo "${d}"
     # dirname=$(dirname "$d")
     basename=$(basename "$d")
@@ -31,3 +34,5 @@ do
         ${ffmpeg} -y -r 30 -f image2 -i "${d}/${basename}_%04d.png" -vcodec libvpx -b:v 10M -qmin 0 -qmax 10 -crf 0 -pix_fmt yuva420p -metadata:s:v:0 alpha_mode="1" -auto-alt-ref 0 "${finaloutput}"
     fi
 done
+
+shopt -u globstar
