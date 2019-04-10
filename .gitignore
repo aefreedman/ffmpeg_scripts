@@ -1,0 +1,6 @@
+sources/
+output/
+.vscode/
+ffmpeg*.zip
+.gitconfig
+.gitkeep
