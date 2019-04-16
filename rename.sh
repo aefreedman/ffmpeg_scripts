@@ -11,13 +11,13 @@ fixspaces () { find $1 -name "* *.*" -type f -print0 | \
 findspaces () { find $1 -name "* *.*" -type f -print0 | \
   while read -d $'\0' f; do echo $f; done }
 
-while getopts d:Dvh opt; do
+while getopts s:Svh opt; do
 [[ ${OPTARG} == -* ]] && { echo "Missing argument for -${opt}" ; exit 1 ; }
 case "${opt}"
 in
     v) v=true;;
-    d) DIR=${OPTARG};;
-    D) DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";;
+    s) DIR=${OPTARG};;
+    S) DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";;
     h) usage; exit;;
     \? ) echo "Unknown option: -$OPTARG" >&2; exit 1;;
     :  ) echo "Missing option argument for -$OPTARG" >&2; exit 1;;
@@ -28,7 +28,7 @@ done
 if [[ $DIR = "" ]]
 # if ! $DIR && [[ -d $1 ]]
 then
-    echo "Directory is not set, use flag -f with a path to a folder"
+    echo "Directory is not set, use flag -s with a path to a folder"
     # echo "-r or -R must be included when a directory is specified" >&2
     exit 1
 fi

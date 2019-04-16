@@ -9,3 +9,5 @@ ffmpeg/*
 *.webm
 *.png
 *.jpg
+*.exe
+magick/
